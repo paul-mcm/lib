@@ -1,0 +1,11 @@
+# takes ipv4 or CIDR addr and number (1-4)
+# returns value at give oct 
+
+function find_octet {
+    typeset ip=${1%/*}
+    typeset oct=$2
+    typeset rgexes
+    set -A rgexes '' '*.' '*.*.' '*.*.*.'
+    ip=${ip#${rgexes[ ((oct - 1)) ]}}
+    echo ${ip%%.*}
+}

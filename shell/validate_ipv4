@@ -1,0 +1,40 @@
+function validate_ipv4
+{
+    typeset ip=$1
+    typeset i=0
+    typeset head
+    typeset tail=$ip
+    typeset tmp
+
+    echo $ip | /usr/bin/grep -e \
+	"^[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}$" >> \
+	/dev/null 2>&1
+    if [ $? -ne 0 ] 
+    then 
+	echo 'Bad address format'
+	return 1
+    fi 
+
+    while ([[ $i -lt  4 ]])
+    do
+	head=${tail%%.[0-9]*} #pop off first oct
+
+	# no octets starting w/ '0' and length > 1
+	if [[ -n ${head%%[1-9]*} && ${#head} -gt 1 ]]
+	then
+	    echo "Bad octet"
+	    return 1
+	fi
+
+	if [[ $head -gt 255 ]]
+	then
+	    echo 'octet out of range'
+	    return 1
+	fi
+
+	tail=${tail#[0-9]*.} #reassign $tail to next oct
+        ((i++))
+    done
+
+    return 0
+}

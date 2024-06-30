@@ -1,0 +1,15 @@
+# Take ipv4 addr or CIDR addr 
+# Returns string of space delimited octets
+function parse_octets {
+    typeset ip=${1%/*}  #remove netmask part
+    typeset str=''
+    typeset i=1
+
+    while ( [ $i -lt 5 ] )
+    do
+        str="$str ${ip%%.*}" 
+        ip=${ip#*.}
+        ((i++))
+    done
+    echo $str
+}

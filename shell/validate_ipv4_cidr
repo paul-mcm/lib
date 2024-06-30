@@ -1,0 +1,31 @@
+# VALIDATE FORMAT OF IPV4 ADDR/NET
+function validate_ipv4_cidr {
+    typeset ip=${1%/*}
+    typeset nbits=${1#*/}
+    typeset valid_chars='[0-9]'
+
+    # vaidate input
+    if [[ $(expr "${nbits}" : "${valid_chars}*") -ne "${#nbits}" ]]
+    then
+	echo "bad char in net bits"
+	return 1
+    fi
+
+    # validate range of netbits
+    if [[ $nbits -lt 1 || $nbits -gt 31 ]]
+    then
+	echo "net bit out of range "
+	return 1
+    fi
+
+    # validate ipv4 addr
+    validate_ipv4 $ip || return 1
+    
+}
+
+
+
+
+
+
+
