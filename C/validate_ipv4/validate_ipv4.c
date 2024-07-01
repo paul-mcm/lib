@@ -46,7 +46,7 @@ int validate_ipv4(char *addr) {
 
 	/* VALIDATE NETMASK */
 	if (mask != NULL && *mask == '\0') {
-	    printf("Incomplete netmask"\n");
+	    printf("Incomplete netmask\n");
 	    return(-1);
 	}
 
