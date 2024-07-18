@@ -1,0 +1,8 @@
+#  REGEX matches 't' in string of 1+ letters 
+#  preceeded by a hyphen.  Used to find trace
+#  flag in command line args.  
+function trace {
+    typeset RGEX='(^| +)-[a-s,u-z]*t[a-s,u-z]* *'
+    echo "$@" | grep -E -e "$RGEX" > /dev/null 2>&1       
+}
+    
