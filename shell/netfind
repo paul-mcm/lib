@@ -1,6 +1,6 @@
 #!/bin/ksh
 
-function who {
+function netfind {
     $Trace && typeset -x
     ip=${1%/*}
 
