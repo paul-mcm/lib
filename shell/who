@@ -1,0 +1,27 @@
+#!/bin/ksh
+
+function who {
+    $Trace && typeset -x
+    ip=${1%/*}
+
+    tmpfile=$(mktemp)
+    whois $ip > $tmpfile
+
+    # Format for RIPE
+    cidr=$( cat $tmpfile | grep "Information related to '.*/.*AS.*'" | \
+	sed -e "s/^%.* '\(.*\/[0-9]\{1,2\}\)AS.*$/\1/")
+    if [ $cidr ]
+    then
+	rm $tmpfile
+	echo $cidr
+    fi
+
+    # Format for ARIN
+    cidr=$( cat $tmpfile | grep CIDR: | sed 's/CIDR: *//')
+    if [ $cidr ]
+    then
+	rm $tmpfile
+	echo $cidr
+    fi
+}
+
