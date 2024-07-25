@@ -1,8 +1,9 @@
 #!/bin/ksh
 
 function netfind {
-    $Trace && typeset -x
-    ip=${1%/*}
+    $Trace && set -x
+    typeset ip=${1%/*}
+    typeset cidr
 
     tmpfile=$(mktemp)
     whois $ip > $tmpfile
@@ -12,16 +13,17 @@ function netfind {
 	sed -e "s/^%.* '\(.*\/[0-9]\{1,2\}\)AS.*$/\1/")
     if [ $cidr ]
     then
-	rm $tmpfile
-	echo $cidr
+        rm $tmpfile
+        echo $cidr
+        return
     fi
 
     # Format for ARIN
     cidr=$( cat $tmpfile | grep CIDR: | sed 's/CIDR: *//')
     if [ $cidr ]
     then
-	rm $tmpfile
-	echo $cidr
+        rm $tmpfile
+        echo $cidr
+        return
     fi
 }
-
