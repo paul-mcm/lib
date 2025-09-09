@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 ############################
-# Returns tange of Host IPs from CIDR addr
+# Returns range of Host IPs from CIDR addr
 # Input: 
 # %ips = ( cidr => ip/cidr,
 # 	  low => '',
