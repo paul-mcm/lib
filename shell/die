@@ -1,0 +1,6 @@
+function die {
+    $Trace && set -x
+    typeset msg="$@"
+    echo "$@" >&2
+    exit
+}

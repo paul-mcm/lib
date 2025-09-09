@@ -1,0 +1,7 @@
+# Echos $@ if $TestFlg true, else execs $@ in subshell
+function runcmd {
+    $Trace && set -x
+    typeset cmd="$@"
+    $TestFlg && echo "TEST: ${cmd[@]}" || ( ${cmd[@]} ) # Leave unquoted
+    return $?
+}
