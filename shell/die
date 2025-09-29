@@ -1,5 +1,5 @@
 function die {
-    [ $Trace ] && set -x
+    ${Trace:-false} && set -x
     typeset msg="$@"
     echo "$@" >&2
     exit

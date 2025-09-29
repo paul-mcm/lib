@@ -1,7 +1,7 @@
 # Echos $@ if $TestFlg true, else execs $@ in subshell
 function runcmd {
-    [ $Trace ] && set -x
+    ${Trace:-false} && set -x
     typeset cmd="$@"
-    [ $TestFlg ] && echo "TEST: ${cmd[@]}" || ( ${cmd[@]} ) # Leave unquoted
+    ${TestFlg:-false} && echo "TEST: ${cmd[@]}" || ( ${cmd[@]} ) # Leave unquoted
     return $?
 }
